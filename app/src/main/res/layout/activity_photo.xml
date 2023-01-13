@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PhotoActivity"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/photo"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/addButton"
+            android:src="@drawable/baseline_clear_white_48"
+            android:id="@+id/deletePhoto"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+
+            tools:ignore="ContentDescription,NestedWeights" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/addButton"
+            android:src="@drawable/baseline_edit_white_48"
+            android:id="@+id/editPhoto"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</LinearLayout>
