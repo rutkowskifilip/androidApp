@@ -96,7 +96,6 @@ public class TestAdapter extends ArrayAdapter {
             alert.setMessage("Edycja zdjęcia\n" + _list.get(position));
             alert.setView(editView);
 
-           // Log.d("xxx", DebugDB.getAddressLog());
 
 
             alert.setNeutralButton("Zapisz", new DialogInterface.OnClickListener(){
@@ -105,7 +104,7 @@ public class TestAdapter extends ArrayAdapter {
                             _context, // activity z galerią zdjęć
                             "NotesRutkowskiFilip.db", // nazwa bazy
                             null,
-                            2 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
+                            3 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
                     );
                     EditText titleInput = (EditText) editView.findViewById(R.id.noteTitle);
                     String title = titleInput.getText().toString();
@@ -113,7 +112,7 @@ public class TestAdapter extends ArrayAdapter {
                     String desc = titleInput.getText().toString();
                     int color = titleInput.getCurrentTextColor();
 
-                    db.insert(title, desc, String.valueOf(color));
+                    db.insert(title, desc, String.valueOf(color),_list.get(position));
                 }
             });
             alert.setNegativeButton("Anuluj", null);
