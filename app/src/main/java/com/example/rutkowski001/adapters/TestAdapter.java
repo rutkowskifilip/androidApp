@@ -50,10 +50,10 @@ public class TestAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-                alert.setTitle("Uwaga!");
-                alert.setMessage("Usunąć zdjęcie " + _list.get(position) + "?");
+                alert.setTitle("DELETE PHOTO");
+                alert.setMessage("Delete photo " + _list.get(position) + "?");
 
-                alert.setNegativeButton("Usuń", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         File file = new File(_list.get(position));
                         file.delete();
@@ -63,7 +63,7 @@ public class TestAdapter extends ArrayAdapter {
 
                 });
 
-                alert.setNeutralButton("Anuluj", null);
+                alert.setNeutralButton("Cancel", null);
 
                 alert.show();
 
@@ -77,7 +77,7 @@ public class TestAdapter extends ArrayAdapter {
         edit.setOnClickListener(v -> {
             View editView = View.inflate(_context, R.layout.note_input, null);
 
-            String [] colors = {"#ff0000", "#00ff00","#0000ff", "#ffff00", "#ff00ff", "#00ffff"};
+            String [] colors = {"#ff0000", "#00ff00","#0000ff", "#ffff00", "#ff00ff", "#00ffff", "#f0f0f0", "#ffffff"};
             LinearLayout colorPicker = (LinearLayout) editView.findViewById(R.id.colorPicker);
 //            Log.d("xxx", String.valueOf(colorPicker));
             for(String color: colors){
@@ -91,13 +91,13 @@ public class TestAdapter extends ArrayAdapter {
                 colorPicker.addView(b);
             }
             AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-            alert.setTitle("Uwaga!");
-            alert.setMessage("Notatka do zdjęcia:\n" + _list.get(position));
+            alert.setTitle("NOTE");
+            alert.setMessage("Note to photo:\n" + _list.get(position));
             alert.setView(editView);
 
 
 
-            alert.setNeutralButton("Zapisz", new DialogInterface.OnClickListener(){
+            alert.setNeutralButton("Save", new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which) {
                     DatabaseManager db = new DatabaseManager (
                             _context, // activity z galerią zdjęć
@@ -114,7 +114,7 @@ public class TestAdapter extends ArrayAdapter {
                     db.insert(title, desc, String.valueOf(color),_list.get(position));
                 }
             });
-            alert.setNegativeButton("Anuluj", null);
+            alert.setNegativeButton("Cancel", null);
             alert.show();
 
 
@@ -123,8 +123,8 @@ public class TestAdapter extends ArrayAdapter {
         info.setOnClickListener( v -> {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-            alert.setTitle("Uwaga!");
-            alert.setMessage("Informacje o zdjeciu\n" + _list.get(position));
+            alert.setTitle("Info");
+            alert.setMessage("Photo info\n" + _list.get(position));
 
 
 

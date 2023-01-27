@@ -102,8 +102,8 @@ public class AlbumsActivity extends AppCompatActivity {
 
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(AlbumsActivity.this);
-                alert.setTitle("New directory");
-                alert.setMessage("Directory name");
+                alert.setTitle("CREATE NEW DIRECTORY");
+                alert.setMessage("Directory name:");
 
                 EditText input = new EditText(AlbumsActivity.this);
                 input.setText("");

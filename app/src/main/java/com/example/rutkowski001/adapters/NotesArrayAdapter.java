@@ -81,9 +81,9 @@ public class NotesArrayAdapter extends ArrayAdapter {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-                alert.setTitle("Edycja notatki");
+                alert.setTitle("NOTE");
 
-                String[] options = {"edytuj", "usuń", "sortuj wg tytułu", "sortuj wg koloru"};
+                String[] options = {"Edit", "Delete", "Sort by title", "Sort by color"};
                 alert.setItems(options, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // wyswietl opcje[whic
@@ -109,13 +109,13 @@ public class NotesArrayAdapter extends ArrayAdapter {
                                 colorPicker.addView(b);
                             }
                             AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-                            alert.setTitle("Uwaga!");
-                            alert.setMessage("Notatka do zdjęcia:\n" + _list.get(position).getImagePath());
+                            alert.setTitle("NOTE");
+                            alert.setMessage("Photo note:\n" + _list.get(position).getImagePath());
                             alert.setView(editView);
 
 
 
-                            alert.setNeutralButton("Zapisz", new DialogInterface.OnClickListener(){
+                            alert.setNeutralButton("Save", new DialogInterface.OnClickListener(){
                                 public void onClick(DialogInterface dialog, int which) {
                                     String title = titleInput.getText().toString();
                                     String desc = descInput.getText().toString();
@@ -125,7 +125,7 @@ public class NotesArrayAdapter extends ArrayAdapter {
                                     notifyDataSetChanged();
                                 }
                             });
-                            alert.setNegativeButton("Anuluj", null);
+                            alert.setNegativeButton("Cancel", null);
                             alert.show();
 
                         }

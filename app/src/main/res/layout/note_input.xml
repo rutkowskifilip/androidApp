@@ -11,14 +11,14 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:inputType="text"
-        android:hint="@string/tytu"/>
+        android:hint="@string/title"/>
     <EditText
         android:id="@+id/noteDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:inputType="text"
-        android:hint="@string/opis"/>
+        android:hint="@string/desc"/>
 
     <LinearLayout
         android:id="@+id/colorPicker"

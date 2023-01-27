@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                alert.setTitle("Uwaga!");
+                alert.setTitle("Wybierz źródło zdjęcia:");
 //nie może mieć setMessage!!!
-                String[] options = {"Camera","Gallery"};
+                String[] options = {"Aparat","Galeria"};
                 alert.setItems(options, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("which", String.valueOf(which));
