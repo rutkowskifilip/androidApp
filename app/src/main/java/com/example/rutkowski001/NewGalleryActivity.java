@@ -4,9 +4,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.example.rutkowski001.adapters.TestAdapter;
 
 import java.io.File;
 import java.util.ArrayList;

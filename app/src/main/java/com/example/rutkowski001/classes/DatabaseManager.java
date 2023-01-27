@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.classes;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -48,6 +48,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return db.delete("notes",
                 "_id = ? ",
                 new String[]{id});
+    }
+    public int update(String id, String title, String desc, String color, String imagePath){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", title);
+        contentValues.put("description",desc);
+        contentValues.put("color", color);
+        contentValues.put("imagePath", imagePath);
+        return db.update("notes",
+                contentValues,
+                "_id = ? ",
+                new String[]{id});
+//        db.close();
     }
     @SuppressLint("Range")
     public ArrayList<Note> getAll(){

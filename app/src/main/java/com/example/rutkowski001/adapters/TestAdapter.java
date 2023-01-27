@@ -1,10 +1,9 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import com.amitshekhar.DebugDB;
+import com.example.rutkowski001.classes.DatabaseManager;
+import com.example.rutkowski001.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TestAdapter extends ArrayAdapter {
 
@@ -78,7 +77,7 @@ public class TestAdapter extends ArrayAdapter {
         edit.setOnClickListener(v -> {
             View editView = View.inflate(_context, R.layout.note_input, null);
 
-            String [] colors = {"#ff0000", "#00ff00","#0000ff"};
+            String [] colors = {"#ff0000", "#00ff00","#0000ff", "#ffff00", "#ff00ff", "#00ffff"};
             LinearLayout colorPicker = (LinearLayout) editView.findViewById(R.id.colorPicker);
 //            Log.d("xxx", String.valueOf(colorPicker));
             for(String color: colors){
@@ -93,7 +92,7 @@ public class TestAdapter extends ArrayAdapter {
             }
             AlertDialog.Builder alert = new AlertDialog.Builder(_context);
             alert.setTitle("Uwaga!");
-            alert.setMessage("Edycja zdjęcia\n" + _list.get(position));
+            alert.setMessage("Notatka do zdjęcia:\n" + _list.get(position));
             alert.setView(editView);
 
 

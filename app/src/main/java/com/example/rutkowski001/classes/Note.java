@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.classes;
 
 public class Note {
     private String id;

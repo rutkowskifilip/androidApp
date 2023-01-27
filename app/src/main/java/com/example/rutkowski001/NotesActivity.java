@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.rutkowski001.adapters.NotesArrayAdapter;
+import com.example.rutkowski001.classes.DatabaseManager;
+import com.example.rutkowski001.classes.Note;
+
 import java.util.ArrayList;
 
 public class NotesActivity extends AppCompatActivity {
