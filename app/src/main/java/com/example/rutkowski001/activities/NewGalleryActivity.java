@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.rutkowski001.adapters.TestAdapter;
+import com.example.rutkowski001.R;
+import com.example.rutkowski001.adapters.ArrayAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class NewGalleryActivity extends AppCompatActivity {
             list.add(String.valueOf(file));
         }
 
-        TestAdapter adapter = new TestAdapter (
+        ArrayAdapter adapter = new ArrayAdapter(
                 NewGalleryActivity.this,
                 R.layout.new_photo_list_view_element,
                 list

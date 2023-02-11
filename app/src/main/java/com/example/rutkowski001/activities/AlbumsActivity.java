@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -18,8 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.example.rutkowski001.R;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
 
 public class AlbumsActivity extends AppCompatActivity {
     private ListView listView;
@@ -38,18 +43,19 @@ public class AlbumsActivity extends AppCompatActivity {
         File dir = new File(pic, "RutkowskiFilip");
 
 
-        File[] files = dir.listFiles() ;// tablica plików
-        String[] array = new String[files.length]; // ilość plików].{};
-        Arrays.sort(files); // sortowanie plików wg nazwy
+        File[] files = dir.listFiles() ;
+        ArrayList<String> array = new ArrayList<>();
+        Arrays.sort(files);
         for (int i=0; i< files.length;i++){
-            array[i] = files[i].getName();
+            Log.d("nazwa", files[i].getName());
+            array.add(files[i].getName());
         }
-        Log.d("xxx", Arrays.toString(files));
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                AlbumsActivity.this,       // tzw Context
-                R.layout.photo_list_view_element,     // nazwa pliku xml naszego wiersza na liście
-                R.id.tv1,                // id pola txt w wierszu
-                array );                 // tablica przechowująca testowe dane
+                AlbumsActivity.this,
+                R.layout.photo_list_view_element,
+                R.id.tv1,
+                array );
 
         listView.setAdapter(adapter);
 
@@ -65,25 +71,29 @@ public class AlbumsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("klik", "long");
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(AlbumsActivity.this);
-                alert.setTitle("!!!");
-                alert.setMessage("Delete directory?");
-//ok
+                alert.setTitle("DELETE DIRECTORY");
+                alert.setMessage("Are you sure that you want to delete this directory?");
+
                 alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        File dir = new File(pic, array[i]);
-                        for (File file : dir.listFiles()){
-                            file.delete();
 
+                        File dir2 = new File(dir, array.get(i));
+                        for (File file : dir2.listFiles()){
+                            Log.d("filelong", String.valueOf(file));
+                            file.delete();
                         }
-                        dir.delete();
-                        Log.d("long", String.valueOf(array[i]));
+                        dir2.delete();
+
+                        array.remove(i);
+
+                        adapter.notifyDataSetChanged();
                     }
 
                 });
 
-//no
+
                 alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //wyświetl which
@@ -92,7 +102,7 @@ public class AlbumsActivity extends AppCompatActivity {
 //
                 alert.show();
 
-                return false;
+                return true;
             }
         });
 
@@ -102,7 +112,7 @@ public class AlbumsActivity extends AppCompatActivity {
 
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(AlbumsActivity.this);
-                alert.setTitle("CREATE NEW DIRECTORY");
+                alert.setTitle("NEW DIRECTORY");
                 alert.setMessage("Directory name:");
 
                 EditText input = new EditText(AlbumsActivity.this);
@@ -112,13 +122,18 @@ public class AlbumsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d("klik", String.valueOf(input.getText()));
-                        File dir = new File(pic, String.valueOf(input.getText()));
-                        dir.mkdir();
+                        File dir2 = new File(dir, String.valueOf(input.getText()));
+                        dir2.mkdir();
+                        array.add(String.valueOf(input.getText()));
+                        Collections.sort(array);
+                        adapter.notifyDataSetChanged();
                     }
-                }).show();  // null to pusty click
+                }).show();
+
+
 
             };
-                //alert.show();
+
 
         });
     }

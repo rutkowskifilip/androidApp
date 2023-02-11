@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,9 +23,9 @@ import com.example.rutkowski001.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class TestAdapter extends ArrayAdapter {
+public class ArrayAdapter extends android.widget.ArrayAdapter {
 
-    public TestAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
+    public ArrayAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
         super(context, resource, objects);
         this._list= objects;
         this._context = context;

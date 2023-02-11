@@ -72,10 +72,10 @@ public class NotesArrayAdapter extends ArrayAdapter {
             }
         });
         DatabaseManager db = new DatabaseManager (
-                _context, // activity z galerią zdjęć
-                "NotesRutkowskiFilip.db", // nazwa bazy
+                _context,
+                "NotesRutkowskiFilip.db",
                 null,
-                3 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
+                3
         );
         editBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

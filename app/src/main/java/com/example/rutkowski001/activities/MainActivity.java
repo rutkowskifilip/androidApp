@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,26 +8,30 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.amitshekhar.DebugDB;
+import com.example.rutkowski001.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -57,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 100);
         checkPermission(Manifest.permission.CAMERA, 100);
-        Log.d("xxx", DebugDB.getAddressLog());
+//        Log.d("xxx", DebugDB.getAddressLog());
         //
+        //Log.d("xxx", String.valueOf(pic));
         File dir = new File(pic, "RutkowskiFilip");
-        if(dir.exists() == false) {
+        if(!dir.exists()) {
             dir.mkdir();
-
+            Log.d("tutaj", "tutaj");
             File dir1 = new File(dir, "miejsca");
             File dir2 = new File(dir, "ludzie");
             File dir3 = new File(dir, "rzeczy");
@@ -70,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             dir2.mkdir();
             dir3.mkdir();
 
+        }else{
+            Log.d("tutaj", "tu");
         }
         cameraLayout = findViewById(R.id.camera);
         albumsLayout = findViewById(R.id.albums);
@@ -82,16 +89,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 alert.setTitle("Wybierz źródło zdjęcia:");
-//nie może mieć setMessage!!!
+
                 String[] options = {"Aparat","Galeria"};
                 alert.setItems(options, new DialogInterface.OnClickListener() {
+                    @SuppressLint("QueryPermissionsNeeded")
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("which", String.valueOf(which));
                         if(which == 0){
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//jeśli jest dostępny aparat
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             if (intent.resolveActivity(getPackageManager()) != null) {
-                                startActivityForResult(intent, 200); // 200 - stała wartość, która później posłuży do identyfikacji tej akcji
+                                startActivityForResult(intent, 200);
                             }
+                        }else{
+                            Intent intent = new Intent(Intent.ACTION_PICK);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, 100);
                         }
                     }
                 });
@@ -162,10 +174,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 200) {
+
             if (resultCode == RESULT_OK) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                alert.setTitle("W którym folderze zapisać zdjęcię?");
+                alert.setTitle("In which directory save photo?");
 
                 File dir = new File(pic, "RutkowskiFilip");
                 File[] files = dir.listFiles() ;// tablica plików
@@ -178,11 +190,25 @@ public class MainActivity extends AppCompatActivity {
                 alert.setItems(options, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("which", String.valueOf(which));
-                        Bundle extras = data.getExtras();
-                        Bitmap b = (Bitmap) extras.get("data");
+                        Bitmap b;
+                        if(requestCode==200) {
+                            Bundle extras = data.getExtras();
+                             b = (Bitmap) extras.get("data");
 //                        ImageView iv = null;
 //                        iv.setImageBitmap(b);
+
+                        }else{
+                            Uri imgData = data.getData();
+                            InputStream stream = null;
+                            try {
+                                stream = getContentResolver().openInputStream(imgData);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                             b = BitmapFactory.decodeStream(stream);
+                        }
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
                         b.compress(Bitmap.CompressFormat.JPEG, 100, stream); // kompresja, typ pliku jpg, png
                         byte[] byteArray = stream.toByteArray();
                         FileOutputStream fs = null;
@@ -211,6 +237,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-        }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -18,8 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.example.rutkowski001.R;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class NewAlbumsActivity extends AppCompatActivity {
     File pic = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES);
@@ -36,10 +40,10 @@ public class NewAlbumsActivity extends AppCompatActivity {
 
 
         File[] files = dir.listFiles() ;
-        String[] array = new String[files.length];
+        ArrayList<String> array = new ArrayList<>();
         Arrays.sort(files);
         for (int i=0; i< files.length;i++){
-            array[i] = files[i].getName();
+            array.add(files[i].getName());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -62,20 +66,23 @@ public class NewAlbumsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("klik", "long");
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(NewAlbumsActivity.this);
-                alert.setTitle("!!!");
-                alert.setMessage("Delete directory?");
-//ok
+                alert.setTitle("DELETE DIRECTORY");
+                alert.setMessage("Are you sure that you want to delete this directory?");
+
                 alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        File dir = new File(pic, array[i]);
-                        for (File file : dir.listFiles()){
+                        File dir2 = new File(dir, array.get(i));
+                        for (File file : dir2.listFiles()){
                             file.delete();
 
                         }
-                        dir.delete();
-                        Log.d("long", String.valueOf(array[i]));
+                        dir2.delete();
+
+                        array.remove(i);
+
+                        adapter.notifyDataSetChanged();
                     }
 
                 });
@@ -89,7 +96,7 @@ public class NewAlbumsActivity extends AppCompatActivity {
 //
                 alert.show();
 
-                return false;
+                return true;
             }
         });
 
@@ -99,8 +106,8 @@ public class NewAlbumsActivity extends AppCompatActivity {
 
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(NewAlbumsActivity.this);
-                alert.setTitle("New directory");
-                alert.setMessage("Directory name");
+                alert.setTitle("NEW DIRECTORY");
+                alert.setMessage("Directory name:");
 
                 EditText input = new EditText(NewAlbumsActivity.this);
                 input.setText("");
@@ -108,9 +115,12 @@ public class NewAlbumsActivity extends AppCompatActivity {
                 alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d("klik", String.valueOf(input.getText()));
-                        File dir = new File(pic, String.valueOf(input.getText()));
-                        dir.mkdir();
+
+                        File dir2 = new File(dir, String.valueOf(input.getText()));
+                        dir2.mkdir();
+                        array.add(String.valueOf(input.getText()));
+                        Collections.sort(array);
+                        adapter.notifyDataSetChanged();
                     }
                 }).show();  // null to pusty click
 

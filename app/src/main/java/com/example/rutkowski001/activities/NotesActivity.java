@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.rutkowski001.R;
 import com.example.rutkowski001.adapters.NotesArrayAdapter;
 import com.example.rutkowski001.classes.DatabaseManager;
 import com.example.rutkowski001.classes.Note;

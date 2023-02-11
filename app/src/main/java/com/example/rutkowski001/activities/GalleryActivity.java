@@ -1,4 +1,4 @@
-package com.example.rutkowski001;
+package com.example.rutkowski001.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,10 +12,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.rutkowski001.R;
 
 import java.io.File;
 
@@ -30,7 +30,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         String directoryString = (String) bundle.get("directory");
-        //Log.d("files", directoryString);
+        //directoryString = "/storage/emulated/0/Pictures";
+        Log.d("files", directoryString);
         File dir = new File(directoryString);
         File[] files = dir.listFiles() ;
         //Log.d("files", String.valueOf(files));
